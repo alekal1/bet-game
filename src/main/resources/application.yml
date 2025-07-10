@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: bet-game
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/game_db?currentSchema=game
+    username: game_user
+    password: game_user_password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 2
+
+  liquibase:
+    default-schema: liquidbase
+    enabled: true
+    change-log: classpath:/db/changelog/changelog.xml
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /index.html
+
+game:
+  properties:
+    win-multiplier: 9.9
+    round-duration-in-seconds: 10

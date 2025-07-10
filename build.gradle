@@ -1,0 +1,70 @@
+buildscript {
+	apply from: 'dependencies.gradle'
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'ee.aleksale'
+version = '0.0.1'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 		deps.springBoot
+	implementation 		deps.liquidbase
+    implementation 		deps.mapstruct
+	implementation 		deps.jsonWebToken
+
+	compileOnly 		deps.lombok
+
+	runtimeOnly 		deps.postgresql
+
+	annotationProcessor deps.lombok
+	annotationProcessor deps.mapstructProcessor
+
+	testImplementation 	deps.springBootTest
+
+	testRuntimeOnly 	deps.junitPlatformLauncher
+}
+
+test {
+	exclude '**/RTPSimulation.class'
+	useJUnitPlatform()
+}
+
+tasks.register("rtpSimulation", Test) {
+	useJUnitPlatform()
+
+	filter {
+		includeTestsMatching 'ee.aleksale.betgame.websocket.RTPSimulation'
+	}
+
+	testLogging {
+		showStandardStreams = true
+		showStackTraces true
+	}
+
+	outputs.upToDateWhen { false }
+
+	systemProperty 'totalRounds', project.findProperty("totalRounds") ?: '1000000'
+	systemProperty 'winMultiplier', project.findProperty("winMultiplier") ?: '9.9'
+	systemProperty 'playersBet', project.findProperty("playersBet") ?: '1.0'
+}

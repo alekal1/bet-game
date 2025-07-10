@@ -1,0 +1,25 @@
+services:
+  postgres:
+    container_name: 'bet-game-database'
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=game_db'
+      - 'POSTGRES_PASSWORD=game_user_password'
+      - 'POSTGRES_USER=game_user'
+    volumes:
+      - ./src/main/resources/db/dev:/docker-entrypoint-initdb.d
+    ports:
+      - '5432:5432'
+  bet-game:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/game_db
+      - SPRING_DATASOURCE_USERNAME=game_user
+      - SPRING_DATASOURCE_PASSWORD=game_user_password
+      - SERVER_PORT=9999
+    depends_on:
+      - postgres
+    ports:
+      - '9999:9999'
