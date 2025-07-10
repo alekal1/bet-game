@@ -2,7 +2,8 @@ ext.versions = [
         springdoc:              '2.8.9',
         springBootValidation:   '3.4.4',
         mapstruct:              '1.6.3',
-        jsonWebToken:           '0.12.5'
+        jsonWebToken:           '0.12.5',
+        testcontainers:         '1.21.3'
 ]
 
 ext.deps = [
@@ -18,7 +19,12 @@ ext.deps = [
                 "org.springframework.boot:spring-boot-starter-actuator"
         ],
         springBootTest: [
-                "org.springframework.boot:spring-boot-starter-test"
+                "org.springframework.boot:spring-boot-starter-test",
+                "org.springframework.boot:spring-boot-testcontainers"
+        ],
+        testcontainers: [
+                'org.testcontainers:junit-jupiter',
+                'org.testcontainers:postgresql'
         ],
         liquidbase: [
                 "org.liquibase:liquibase-core"

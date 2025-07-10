@@ -20,11 +20,11 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Long> {
     @Query(value = "UPDATE game.players " +
             "SET total_amount = total_amount + :value " +
             "WHERE username = :username", nativeQuery = true)
-    void increasePlayerAmount(@Param("username") String username, @Param("value") double value);
+    int increasePlayerAmount(@Param("username") String username, @Param("value") double value);
 
     @Modifying
     @Query(value = "UPDATE game.players " +
             "SET total_amount = total_amount - :value " +
             "WHERE username = :username", nativeQuery = true)
-    void decreasePlayerAmount(@Param("username") String username, @Param("value") double value);
+    int decreasePlayerAmount(@Param("username") String username, @Param("value") double value);
 }
