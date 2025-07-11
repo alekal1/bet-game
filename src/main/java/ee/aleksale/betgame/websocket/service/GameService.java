@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -61,25 +62,8 @@ public class GameService {
             int winningNumber = winningNumberGenerator.generateWinningNumber();
             eventPublisher.publishToAllSessions(new GameMessage.RoundEndMessage(winningNumber));
 
-            var winnersList = new ArrayList<RoundWinner>();
-
-            bettingService.getWinBets(winningNumber)
-                            .forEach(winner -> {
-                                double winningAmount = winningAmountGenerator.generateWinningAmount(winner);
-
-                                eventPublisher.publishToSession(
-                                        roundBetRegistry.getKey(winner),
-                                        new GameMessage.WinMessage(winningAmount));
-
-                                bettingService.addAmountToPlayer(winner.getUsername(), winningAmount);
-                                winnersList.add(new RoundWinner(winner.getUsername(), winningAmount));
-                            });
-
-            bettingService.getLoseBets(winningNumber)
-                            .forEach(looser -> eventPublisher.publishToSession(
-                                    roundBetRegistry.getKey(looser),
-                                    new GameMessage.LoseMessage()
-                            ));
+            var winnersList = notifyWinnersAndGetAll(winningNumber);
+            notifyLoosers(winningNumber);
 
             eventPublisher.publishToAllSessions(new GameMessage.WinnersMessage(winnersList));
 
@@ -100,5 +84,30 @@ public class GameService {
         roundBetRegistry.add(session, playerBet);
 
         eventPublisher.publishToSession(session, new GameMessage.BetAcceptedMessage(playerBet));
+    }
+
+    private List<RoundWinner> notifyWinnersAndGetAll(int winningNumber) {
+        var winnersList = new ArrayList<RoundWinner>();
+
+        bettingService.getWinBets(winningNumber)
+                .forEach(winner -> {
+                    double winningAmount = winningAmountGenerator.generateWinningAmount(winner);
+
+                    eventPublisher.publishToSession(
+                            roundBetRegistry.getKey(winner),
+                            new GameMessage.WinMessage(winningAmount));
+
+                    bettingService.addAmountToPlayer(winner.getUsername(), winningAmount);
+                    winnersList.add(new RoundWinner(winner.getUsername(), winningAmount));
+                });
+        return winnersList;
+    }
+
+    private void notifyLoosers(int winningNumber) {
+        bettingService.getLoseBets(winningNumber)
+                .forEach(looser -> eventPublisher.publishToSession(
+                        roundBetRegistry.getKey(looser),
+                        new GameMessage.LoseMessage()
+                ));
     }
 }
