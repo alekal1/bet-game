@@ -1,4 +1,4 @@
-package ee.aleksale.betgame.common;
+package ee.aleksale.betgame;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -6,7 +6,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 
 @Testcontainers(disabledWithoutDocker = true)
-public abstract class BaseRepositoryTest {
+public abstract class TestDatabase {
 
     @ServiceConnection
     private static final PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>("postgres:latest")

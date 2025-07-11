@@ -1,11 +1,11 @@
 package ee.aleksale.betgame.websocket.service.validator;
 
 import ee.aleksale.betgame.common.repository.PlayerRepository;
-import ee.aleksale.betgame.websocket.config.GameProperties;
 import ee.aleksale.betgame.websocket.model.BetValidationResults;
 import ee.aleksale.betgame.websocket.model.PlayerBet;
 import ee.aleksale.betgame.websocket.registry.RoundBetRegistry;
 import ee.aleksale.betgame.websocket.service.managers.RoundStateManager;
+import ee.aleksale.betgame.websocket.utils.WebSocketWarnings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +19,19 @@ public class PlayerBetValidator {
 
     public BetValidationResults isValidBet(PlayerBet playerBet) {
         if (!roundStateManager.getIsRoundRunning().get()) {
-            return BetValidationResults.error("| Round is not running |");
+            return BetValidationResults.error(WebSocketWarnings.ROUND_IS_RUNNING);
         }
 
         if (hasPlayerAlreadyBet(playerBet)) {
-            return BetValidationResults.error("| You have already bet! |");
+            return BetValidationResults.error(WebSocketWarnings.ALREADY_BET);
         }
 
         if (!hasValidAmount(playerBet)) {
-            return BetValidationResults.error("| Bet amount exceeding your total amount |");
+            return BetValidationResults.error(WebSocketWarnings.BET_AMOUNT_EXCEEDED);
         }
 
         if (!isValidNumber(playerBet.getNumber())) {
-            return BetValidationResults.error("| You can place to a number in range from 0 to 10 |");
+            return BetValidationResults.error(WebSocketWarnings.NOT_VALID_NUMBER);
         }
 
         return BetValidationResults.success();

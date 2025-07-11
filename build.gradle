@@ -48,6 +48,7 @@ dependencies {
 
 test {
 	exclude '**/RTPSimulation.class'
+	exclude '**/WebSocketIntegrationTest.class'
 	useJUnitPlatform()
 }
 
@@ -68,4 +69,14 @@ tasks.register("rtpSimulation", Test) {
 	systemProperty 'totalRounds', project.findProperty("totalRounds") ?: '1000000'
 	systemProperty 'winMultiplier', project.findProperty("winMultiplier") ?: '9.9'
 	systemProperty 'playersBet', project.findProperty("playersBet") ?: '1.0'
+}
+
+tasks.register("integration", Test) {
+	useJUnitPlatform()
+
+	filter {
+		includeTestsMatching 'ee.aleksale.betgame.integration.WebSocketIntegrationTest'
+
+		outputs.upToDateWhen { false }
+	}
 }

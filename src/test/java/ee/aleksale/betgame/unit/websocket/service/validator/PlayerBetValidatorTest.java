@@ -1,11 +1,12 @@
-package ee.aleksale.betgame.websocket.service.validator;
+package ee.aleksale.betgame.unit.websocket.service.validator;
 
 import ee.aleksale.betgame.auth.model.domain.PlayerEntity;
 import ee.aleksale.betgame.common.repository.PlayerRepository;
 import ee.aleksale.betgame.websocket.model.PlayerBet;
 import ee.aleksale.betgame.websocket.registry.RoundBetRegistry;
 import ee.aleksale.betgame.websocket.service.managers.RoundStateManager;
-import ee.aleksale.betgame.websocket.stub.WebSocketSessionStub;
+import ee.aleksale.betgame.unit.websocket.stub.WebSocketSessionStub;
+import ee.aleksale.betgame.websocket.service.validator.PlayerBetValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

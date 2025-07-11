@@ -2,7 +2,7 @@ package ee.aleksale.betgame.auth.model.mapper;
 
 import ee.aleksale.betgame.auth.model.api.AuthRequest;
 import ee.aleksale.betgame.auth.model.domain.PlayerEntity;
-import ee.aleksale.betgame.common.utils.GameConstants;
+import ee.aleksale.betgame.auth.utils.RestConstants;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -14,7 +14,7 @@ public interface PlayerMapper {
     default PlayerEntity map(AuthRequest authRequest) {
         var entity = new PlayerEntity();
         entity.setUsername(authRequest.getUsername());
-        entity.setTotalAmount(GameConstants.INIT_PLAYERS_AMOUNT);
+        entity.setTotalAmount(RestConstants.INIT_PLAYERS_AMOUNT);
 
         return entity;
     }

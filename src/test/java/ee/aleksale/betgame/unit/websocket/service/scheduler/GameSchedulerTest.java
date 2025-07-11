@@ -1,5 +1,6 @@
-package ee.aleksale.betgame.websocket.service.scheduler;
+package ee.aleksale.betgame.unit.websocket.service.scheduler;
 
+import ee.aleksale.betgame.websocket.service.scheduler.GameScheduler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

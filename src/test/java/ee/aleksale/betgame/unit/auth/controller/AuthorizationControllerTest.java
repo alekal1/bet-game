@@ -1,9 +1,9 @@
-package ee.aleksale.betgame.auth.controller;
+package ee.aleksale.betgame.unit.auth.controller;
 
+import ee.aleksale.betgame.auth.controller.AuthorizationController;
 import ee.aleksale.betgame.auth.model.api.AuthRequest;
 import ee.aleksale.betgame.auth.service.AuthorizationService;
 import ee.aleksale.betgame.common.utils.JsonUtils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

@@ -1,9 +1,10 @@
-package ee.aleksale.betgame.websocket.service;
+package ee.aleksale.betgame.unit.websocket.service;
 
 import ee.aleksale.betgame.common.repository.PlayerRepository;
 import ee.aleksale.betgame.websocket.model.PlayerBet;
 import ee.aleksale.betgame.websocket.registry.RoundBetRegistry;
-import ee.aleksale.betgame.websocket.stub.WebSocketSessionStub;
+import ee.aleksale.betgame.unit.websocket.stub.WebSocketSessionStub;
+import ee.aleksale.betgame.websocket.service.BettingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

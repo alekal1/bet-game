@@ -1,7 +1,8 @@
-package ee.aleksale.betgame.websocket.service.generator;
+package ee.aleksale.betgame.unit.websocket.service.generator;
 
 import ee.aleksale.betgame.websocket.config.GameProperties;
 import ee.aleksale.betgame.websocket.model.PlayerBet;
+import ee.aleksale.betgame.websocket.service.generator.MultiplierWinningAmountGenerator;
 import ee.aleksale.betgame.websocket.service.generator.contract.WinningAmountGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;

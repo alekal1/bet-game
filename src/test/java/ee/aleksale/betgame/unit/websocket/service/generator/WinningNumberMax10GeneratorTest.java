@@ -1,5 +1,6 @@
-package ee.aleksale.betgame.websocket.service.generator;
+package ee.aleksale.betgame.unit.websocket.service.generator;
 
+import ee.aleksale.betgame.websocket.service.generator.WinningNumberMax10Generator;
 import ee.aleksale.betgame.websocket.service.generator.contract.WinningNumberGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;

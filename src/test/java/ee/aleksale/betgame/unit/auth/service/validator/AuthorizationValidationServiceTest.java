@@ -1,6 +1,7 @@
-package ee.aleksale.betgame.auth.service.validator;
+package ee.aleksale.betgame.unit.auth.service.validator;
 
 import ee.aleksale.betgame.auth.exception.GameAuthorizationException;
+import ee.aleksale.betgame.auth.service.validator.AuthorizationValidationService;
 import ee.aleksale.betgame.common.repository.PlayerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

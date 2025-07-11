@@ -1,7 +1,9 @@
-package ee.aleksale.betgame.common.repository;
+package ee.aleksale.betgame.unit.common.repository;
 
 import ee.aleksale.betgame.auth.model.domain.PlayerEntity;
-import ee.aleksale.betgame.common.BaseRepositoryTest;
+import ee.aleksale.betgame.TestDatabase;
+import ee.aleksale.betgame.common.repository.PlayerRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-class PlayerRepositoryTest extends BaseRepositoryTest {
+class PlayerRepositoryTest extends TestDatabase {
 
     private static final double DEFAULT_AMOUNT = 50.0;
 
@@ -42,7 +44,7 @@ class PlayerRepositoryTest extends BaseRepositoryTest {
 
         var result = playerRepository.existsByIdAndUsername(insertedEntity.getId(), insertedEntity.getUsername());
 
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -51,7 +53,7 @@ class PlayerRepositoryTest extends BaseRepositoryTest {
 
         var result = playerRepository.existsByUsername(insertedEntity.getUsername());
 
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test

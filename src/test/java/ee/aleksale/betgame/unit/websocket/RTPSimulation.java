@@ -1,4 +1,4 @@
-package ee.aleksale.betgame.websocket;
+package ee.aleksale.betgame.unit.websocket;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,12 +42,12 @@ class RTPSimulation {
     }
 
     private void printResults(double spentTotal, double wonTotal, double rtp) {
-        log.info("Rounds total: " + TOTAL_ROUNDS);
-        log.info("Win multiplier: " + WIN_MULTIPLIER);
-        log.info("Player's bet: " + PLAYERS_BET);
-        log.info("Spent total: " + spentTotal);
-        log.info("Won total: " + wonTotal);
-        log.info("RTP: " + rtp);
+        log.info("Rounds total: {}", TOTAL_ROUNDS);
+        log.info("Win multiplier: {}", WIN_MULTIPLIER);
+        log.info("Player's bet: {}", PLAYERS_BET);
+        log.info("Spent total: {}", spentTotal);
+        log.info("Won total: {}", wonTotal);
+        log.info("RTP: {}", rtp);
     }
 
     private Callable<Void> getBatchRounds(int roundsInBatch, AtomicReference<Double> spentTotal, AtomicReference<Double> wonTotal) {

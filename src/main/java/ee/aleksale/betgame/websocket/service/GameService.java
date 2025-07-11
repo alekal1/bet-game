@@ -76,17 +76,15 @@ public class GameService {
                             });
 
             bettingService.getLoseBets(winningNumber)
-                            .forEach(looser -> {
-                                eventPublisher.publishToSession(
-                                        roundBetRegistry.getKey(looser),
-                                        new GameMessage.LoseMessage()
-                                );
-                            });
+                            .forEach(looser -> eventPublisher.publishToSession(
+                                    roundBetRegistry.getKey(looser),
+                                    new GameMessage.LoseMessage()
+                            ));
 
             eventPublisher.publishToAllSessions(new GameMessage.WinnersMessage(winnersList));
 
             roundBetRegistry.clear();
-            gameScheduler.scheduleTask(this::startRound, 2L);
+            gameScheduler.scheduleTask(this::startRound, 1L);
         }
     }
 

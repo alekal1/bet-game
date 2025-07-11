@@ -1,6 +1,6 @@
 ## Getting started
 
-Build project `gradlew clean build`
+Build project `./gradlew clean build`
 
 Make sure Docker is installed on your local machine.
 
@@ -42,18 +42,34 @@ To change those settings change according value, in `application.yml` or via env
 
 ## Simulation
 
-You can run RTPSimulation to simulate game process, that runs in 24 threads - `gradlew rtpSimulation`
+You can run RTPSimulation to simulate game process, that runs in 24 threads - `./gradlew rtpSimulation`
 
 Arguments:
 * `totalRounds` - How many total rounds. (Since simulation is running on 24 threads, the minimal value is 24) - **default 1 million**
 * `playersBet` - Player's bet in each round - **default 1.0**
 * `winMultiplier` - Multiplies with players bet to calculate total win in round - **default 9.9**
 
-Example of usage: `gradlew rtpSimulation -PtotalRounds='100' -PwinMultiplier='3.14' -PplayersBet='5'`
+Example of usage: `./gradlew rtpSimulation -PtotalRounds='100' -PwinMultiplier='3.14' -PplayersBet='5'`
 
 For more details, of how this simulation works check `RTPSimulation.class` under test package.
 
 **_This is a simulation; a player has unlimited money to bet._**
+
+## Integration (requires Docker to run)
+
+You can run integration test to ensure that basic game logic is working.
+
+`./gradlew integration`
+
+* Register a player
+* Connect to a session with a retrieved JWT token
+* Waiting for round start
+* Make an invalid bet
+* Make a valid bet
+* Waiting for the round end
+
+**It runs with a dedicated database container**, so **your local database state will not be changed** during integration
+
 ## Dependencies
 
 This project is using the following dependencies:
@@ -62,6 +78,7 @@ This project is using the following dependencies:
 * Gradle
 * Spring boot
 * WebSocket
+* Testcontainers
 * Postgres
 * Liquidbase
 

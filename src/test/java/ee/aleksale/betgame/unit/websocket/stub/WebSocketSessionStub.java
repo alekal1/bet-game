@@ -1,4 +1,4 @@
-package ee.aleksale.betgame.websocket.stub;
+package ee.aleksale.betgame.unit.websocket.stub;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.socket.CloseStatus;
@@ -61,7 +61,7 @@ public class WebSocketSessionStub implements WebSocketSession {
 
     @Override
     public void setTextMessageSizeLimit(int messageSizeLimit) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -71,7 +71,7 @@ public class WebSocketSessionStub implements WebSocketSession {
 
     @Override
     public void setBinaryMessageSizeLimit(int messageSizeLimit) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
