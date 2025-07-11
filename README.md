@@ -74,7 +74,7 @@ You can run integration test to ensure that basic game logic is working.
 
 This project is using the following dependencies:
 
-* Java 17
+* Java 22
 * Gradle
 * Spring boot
 * WebSocket
