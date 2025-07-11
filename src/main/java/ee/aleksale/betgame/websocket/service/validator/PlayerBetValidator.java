@@ -26,6 +26,10 @@ public class PlayerBetValidator {
             return BetValidationResults.error(WebSocketWarnings.ALREADY_BET);
         }
 
+        if (!isValidAmount(playerBet.getAmount())) {
+            return BetValidationResults.error(WebSocketWarnings.BET_AMOUNT_NOT_VALID);
+        }
+
         if (!hasValidAmount(playerBet)) {
             return BetValidationResults.error(WebSocketWarnings.BET_AMOUNT_EXCEEDED);
         }
@@ -50,5 +54,9 @@ public class PlayerBetValidator {
 
     private boolean isValidNumber(int number) {
         return number >= 0 && number <= 10;
+    }
+
+    private boolean isValidAmount(double amount) {
+        return amount > 0;
     }
 }

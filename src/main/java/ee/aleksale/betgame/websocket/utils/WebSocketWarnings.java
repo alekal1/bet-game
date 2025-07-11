@@ -7,6 +7,7 @@ public class WebSocketWarnings {
 
     public static final String ROUND_IS_RUNNING = "| Round is not running |";
     public static final String ALREADY_BET = "| You have already bet! |";
+    public static final String BET_AMOUNT_NOT_VALID = "| Bet amount should be positive number |";
     public static final String BET_AMOUNT_EXCEEDED = "| Bet amount exceeding your total amount |";
     public static final String NOT_VALID_NUMBER = "| You can place to a number in range from 0 to 10 |";
 }

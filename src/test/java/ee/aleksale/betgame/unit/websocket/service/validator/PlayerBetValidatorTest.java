@@ -10,11 +10,17 @@ import ee.aleksale.betgame.websocket.service.validator.PlayerBetValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,6 +28,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class PlayerBetValidatorTest {
 
     private PlayerRepository playerRepository;
@@ -42,6 +49,37 @@ class PlayerBetValidatorTest {
                 roundStateManager
         );
     }
+
+    private static Stream<Arguments> notValidBetsArguments() {
+        return Stream.of(
+                Arguments.of(new PlayerBet("", -0, 10)),
+                Arguments.of(new PlayerBet("", -1, 10)),
+                Arguments.of(new PlayerBet("", 11, 10)),
+                Arguments.of(new PlayerBet("", 1, -0)),
+                Arguments.of(new PlayerBet("", 1, -1))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("notValidBetsArguments")
+    void notValidBets(PlayerBet playerBet) {
+        var playerEntity = new PlayerEntity();
+        playerEntity.setTotalAmount(0.0);
+        playerEntity.setUsername("");
+
+        doReturn(new AtomicBoolean(true))
+                .when(roundStateManager)
+                .getIsRoundRunning();
+
+        doReturn(Optional.of(playerEntity))
+                .when(playerRepository)
+                .findByUsername(playerEntity.getUsername());
+
+        var result = validator.isValidBet(playerBet);
+
+        assertFalse(result.isValid());
+    }
+
 
     @Test
     void isValidBet_roundIsNotRunning() {
@@ -65,6 +103,25 @@ class PlayerBetValidatorTest {
                 .getIsRoundRunning();
 
         doReturn(Map.of(new WebSocketSessionStub(), playerBet))
+                .when(roundBetRegistry)
+                .getAll();
+
+        var result = validator.isValidBet(playerBet);
+
+        assertFalse(result.isValid());
+    }
+
+
+    @Test
+    void isValidBet_notValidAmount() {
+        var playerBet = getPlayerBet();
+        playerBet.setAmount(-1);
+
+        doReturn(new AtomicBoolean(true))
+                .when(roundStateManager)
+                .getIsRoundRunning();
+
+        doReturn(Map.of(new WebSocketSessionStub(), new PlayerBet()))
                 .when(roundBetRegistry)
                 .getAll();
 
