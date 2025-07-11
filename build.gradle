@@ -56,7 +56,7 @@ tasks.register("rtpSimulation", Test) {
 	useJUnitPlatform()
 
 	filter {
-		includeTestsMatching 'ee.aleksale.betgame.websocket.RTPSimulation'
+		includeTestsMatching 'ee.aleksale.betgame.unit.websocket.RTPSimulation'
 	}
 
 	testLogging {
