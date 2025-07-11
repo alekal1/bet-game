@@ -29,6 +29,9 @@ public class TokenUtil {
     }
 
     public static String getUsername(String token) {
+        if (token == null) {
+            return null;
+        }
         return extractClaim(token, Claims::getSubject);
     }
 
