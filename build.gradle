@@ -36,6 +36,7 @@ dependencies {
 	compileOnly 		deps.lombok
 
 	runtimeOnly 		deps.postgresql
+	runtimeOnly			deps.prometheus
 
 	annotationProcessor deps.lombok
 	annotationProcessor deps.mapstructProcessor

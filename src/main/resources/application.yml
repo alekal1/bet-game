@@ -26,6 +26,12 @@ springdoc:
     enabled: true
     path: /index.html
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["*"]
+
 game:
   properties:
     win-multiplier: 9.9

@@ -45,5 +45,8 @@ ext.deps = [
         ],
         junitPlatformLauncher: [
                 "org.junit.platform:junit-platform-launcher"
+        ],
+        prometheus: [
+                "io.micrometer:micrometer-registry-prometheus"
         ]
 ]
